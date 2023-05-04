@@ -6,7 +6,7 @@ import transformers
 from torch import nn
 from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
 from torch.nn.utils.rnn import pad_sequence
-from transformers import AutoTokenizer, AutoModelForMaskedLM, AutoModelForSequenceClassification
+from transformers import AutoTokenizer, AutoModelForMaskedLM, AutoModelForSequenceClassification, MBartModel
 
 from .util import is_module_available, get_module_or_attr
 from ..commons import ALLENNLP_ELMO_PRETRAINED_FOLDER
@@ -872,7 +872,7 @@ class SubwordBert(nn.Module):
         self.bert_dropout = torch.nn.Dropout(0.2)
         print("self.bert_dropout",self.bert_dropout)
         # self.bert_model = get_pretrained_bert(bert_pretrained_name_or_path)
-        self.bert_model = AutoModelForMaskedLM.from_pretrained("NLPC-UOM/SinBERT-small")
+        self.bert_model = MBartModel.from_pretrained("facebook/mbart-large-cc25")
         print("self.bert_model",self.bert_model)
 
         print("calling SubwordBert model")
